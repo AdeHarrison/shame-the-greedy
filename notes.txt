@@ -53,6 +53,9 @@ rs.add("localhost:27018")
 rs.add("localhost:27019")
 
 
+heroku
+======
+heroku config:get MONGODB_URI
+heroku config:get MONGODB_URI -a shame-the-greedy
 
-
-"databaseURL": "mongodb://localhost:27017/shameTheGreedyDB?replicaSet=rs0",
+heroku logs --tail -a shame-the-greedy

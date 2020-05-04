@@ -2,7 +2,7 @@
   "development": {
     "config_id": "development",
     "node_port": 7000,
-    "databaseURL": "mongodb://localhost:27017/shameTheGreedyDB?replicaSet=rs0",
+    "databaseURL": "mongodb://heroku_4fs9zqgg:cjnk6a1h6bu93bb5me5ish87us@ds159624.mlab.com:59624/heroku_4fs9zqgg",
    "verification_timeout": 3600,
     "database": "shameTheGreedyDB",
     "maxVotesPerDay": 100,
@@ -27,6 +27,7 @@
   },
   "production": {
     "config_id": "production",
+    "databaseURL": "mongodb://heroku_4fs9zqgg:cjnk6a1h6bu93bb5me5ish87us@ds159624.mlab.com:59624/heroku_4fs9zqgg",
     "verification_timeout": 604800,
     "maxVotesPerDay": 10
   }
