@@ -1,0 +1,83 @@
+html {
+    box-sizing: border-box;
+}
+
+*, *::before, *::after {
+    box-sizing: inherit; /* [1] */
+    margin: 0;
+    padding: 0;
+}
+
+/* Links - change color on hover */
+.topnav a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+div.image {
+    max-width: 200px;
+    height: 200px;
+    border-radius: 10px;
+    margin-left: 28px;
+}
+
+div.details {
+    padding: 3px;
+    margin-top: 5px;
+    border-color: lightgray;
+    border-style: solid;
+    border-width: 1px;
+    border-radius: 20px;
+}
+
+div.detail {
+    padding: inherit;
+    margin: inherit;
+}
+
+.detail input {
+    background-color: lightgray;
+    width: 100%;
+    overflow-y: hidden;
+}
+
+#comments {
+    width: 100%;
+    height: 4em;
+    word-break: break-word;
+    background-color: lightgray;
+}
+
+.alert-error {
+    color: #a94442;
+    background-color: #f2dede;
+    border-color: #ebccd1;
+}
+
+.alert-success_msg {
+    color: #3c763d;
+    background-color: #dff0d8;
+    border-color: #d6e9c6;
+}
+
+a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 8px 16px;
+}
+
+a:hover {
+    background-color: #ddd;
+    color: black;
+}
+
+.link-not-avaliable {
+    background-color: lightgray;
+    color: black;
+}
+
+.link-available {
+    background-color: green;
+    color: white;
+}
+

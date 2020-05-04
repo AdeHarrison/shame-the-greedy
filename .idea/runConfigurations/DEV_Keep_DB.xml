@@ -1,0 +1,8 @@
+<component name="ProjectRunConfigurationManager">
+  <configuration default="false" name="DEV Keep DB" type="NodeJSConfigurationType" path-to-js-file="$PROJECT_DIR$/../shame-the-greedy/app.js" working-dir="$PROJECT_DIR$/../shame-the-greedy">
+    <envs>
+      <env name="NODE_ENV" value="development" />
+    </envs>
+    <method v="2" />
+  </configuration>
+</component>
