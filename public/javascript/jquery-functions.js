@@ -17,7 +17,13 @@ $(function () {
                 $('#showMyLeeches').prop('checked', false);
             }
 
-            $('#gridSystemModal').modal('show');
+            url = "/leeches"
+            $.get({url: url}).then((data) => {
+                $('#table_id').DataTable({
+                    data: data
+                });
+                $('#gridSystemModal').modal('show');
+            });
         });
     });
 
@@ -37,4 +43,5 @@ $(function () {
             window.location.replace("/");
         });
     });
-});
+})
+;

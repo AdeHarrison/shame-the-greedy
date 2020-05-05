@@ -7,13 +7,15 @@ const leech_controller = require("../controllers/leechController");
 const uploadDirectory = multer({dest: "public/images/uploads"});
 
 router.get("/*", function (req, res, next) {
-    if (req.isAuthenticated()) {
+    if (req.isAuthenticated() || req.url === "/") {
         return next();
     } else {
         req.flash('danger', 'Please login');
         res.redirect('/users/login');
     }
 });
+
+router.get("/", leech_controller.leeches_get);
 
 router.get("/upload", leech_controller.leech_upload_get);
 router.post("/upload", uploadDirectory.single("shopPhoto"), leech_controller.leech_upload_post);

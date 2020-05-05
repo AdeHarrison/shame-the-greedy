@@ -10,9 +10,14 @@ const security = require('../utils/security');
 const VoteCount = require("../models/leeches/voteCount");
 const Leech = require("../models/leeches/leech");
 const Vote = require("../models/leeches/vote");
+const dataController = require("../controllers/dataController");
 
 const SERVER_UPLOAD_DIRECTORY = "public/images/uploads/";
 const CLIENT_UPLOAD_DIRECTORY = "/images/uploads/";
+
+exports.leeches_get = (req, res) => {
+    return dataController.all_leeches_get(req, res);
+};
 
 exports.leech_upload_get = (req, res) => {
     res.render('leeches/upload', {formData: formUtils.createUploadFormData(req)});

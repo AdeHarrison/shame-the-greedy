@@ -36,6 +36,7 @@ const leechSchema = new Schema({
     },
     voteCount: {
         type: Number,
+        tags: { type: [Number], index: true },
         default: 0
     },
     userId: String
