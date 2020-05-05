@@ -133,7 +133,7 @@ app.get('/', function (req, res) {
     return _refresh_home_page(req, res);
 });
 
-var serverPort = process.env.PORT || 7000;
+const serverPort = process.env.PORT || 7000;
 // Start Server
 app.listen(serverPort, function () {
     console.log("Server started on port " + serverPort);

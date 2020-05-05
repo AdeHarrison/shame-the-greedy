@@ -42,7 +42,7 @@ function validateFileSize() {
     let useStockPhoto = document.getElementById("useStockPhoto");
 
     if (!useStockPhoto.checked) {
-        var uploadFile = document.getElementById("shopPhoto").files[0]; // <input type="file" id="fileUpload" accept=".jpg,.png,.gif,.jpeg"/>
+        let uploadFile = document.getElementById("shopPhoto").files[0]; // <input type="file" id="fileUpload" accept=".jpg,.png,.gif,.jpeg"/>
 
         if (!uploadFile || uploadFile.size > 71680) // 2 mb for bytes.
         {

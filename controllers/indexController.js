@@ -36,10 +36,16 @@ const _refresh_home_page = async (req, res, orderBy, orderDirection) => {
 
             if (req.cookies["filterMyLeeches-" + req.user._id]) {
                 filter["userId"] = req.user._id;
+                sess.filterMyLeeches = true;
             } else {
                 //todo by leeches here IF set
+
+                //todo messy
+                sess.filterMyLeeches = false;
             }
 
+        } else {
+            sess.filterMyLeeches = false;
         }
 
         let sortParams = {};

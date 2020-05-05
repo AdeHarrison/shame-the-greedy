@@ -1,19 +1,16 @@
 $(function () {
 
-    let cookieName;
-
     window.getCookie = function (name) {
-        var match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
+        let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         if (match) return match[2];
     }
 
-    $("#submitBtn").on("click", () => {
+    $("#filterBtn").on("click", () => {
         let url = "/users/details";
 
         $.get({url: url}).then((details) => {
-            cookieName = details.filterMyLeechesCookieName;
-
             let cookie = window.getCookie(details.filterMyLeechesCookieName);
+
             if (cookie) {
                 $('#showMyLeeches').prop('checked', true);
             } else {
@@ -25,16 +22,19 @@ $(function () {
     });
 
     $("#showMyLeeches").on("change", () => {
-        let isChecked = $("#showMyLeeches").is(':checked');
+        let url = "/users/details";
 
-        if (isChecked) {
-            document.cookie = cookieName + "=" + isChecked;
-        } else {
-            document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01GMT;';
-        }
+        $.get({url: url}).then((details) => {
+            let isChecked = $("#showMyLeeches").is(':checked');
+            let cookieName = "filterMyLeeches-" + details.userId;
 
-        $('#gridSystemModal').modal('hide');
-        window.location.replace("/");
-        $.get("/");
+            if (isChecked) {
+                document.cookie = cookieName + "=" + isChecked;
+            } else {
+                document.cookie = cookieName + '=; expires=Thu, 01 Jan 1970 00:00:01GMT;';
+            }
+
+            window.location.replace("/");
+        });
     });
 });

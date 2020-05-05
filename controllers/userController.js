@@ -32,16 +32,19 @@ exports.login_post = (req, res, next) => {
 };
 
 exports.logout_get = (req, res) => {
-    req.logout();
-    req.flash('success', 'You are logged out');
-    res.redirect('/users/login');
+    if (req.isAuthenticated()) {
+        req.logout();
+        req.flash('success', 'You are logged out');
+    }
+
+    res.redirect('/');
 };
 
 exports.details_get = (req, res) => {
     if (req.user) {
         res.send({
             isAuthenticated: req.isAuthenticated(),
-            filterMyLeechesCookieName: "filterMyLeeches-" + req.user._id
+            userId: req.user._id
         });
     } else {
         res.send(false);
