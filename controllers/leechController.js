@@ -16,7 +16,9 @@ const SERVER_UPLOAD_DIRECTORY = "public/images/uploads/";
 const CLIENT_UPLOAD_DIRECTORY = "/images/uploads/";
 
 exports.leeches_get = (req, res) => {
-    return dataController.all_leeches_get(req, res);
+    dataController.all_leeches_get(req, res).then(results => {
+        res.send(results);
+    });
 };
 
 exports.leech_upload_get = (req, res) => {
