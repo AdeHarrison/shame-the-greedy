@@ -8,7 +8,7 @@ $(function () {
     $("#filterBtn").on("click", () => {
         let url = "/users/details";
 
-        $.get({url: url}).then((details) => {
+        $.get({url: url}).then(details => {
             let cookie = window.getCookie(details.filterMyLeechesCookieName);
 
             if (cookie) {
@@ -18,7 +18,7 @@ $(function () {
             }
 
             url = "/leeches"
-            $.get({url: url}).then((data) => {
+            $.get({url: url}).then(data => {
                 $('#table_id').DataTable({
                     data: data
                 });
@@ -30,7 +30,7 @@ $(function () {
     $("#showMyLeeches").on("change", () => {
         let url = "/users/details";
 
-        $.get({url: url}).then((details) => {
+        $.get({url: url}).then(details => {
             let isChecked = $("#showMyLeeches").is(':checked');
             let cookieName = "filterMyLeeches-" + details.userId;
 
