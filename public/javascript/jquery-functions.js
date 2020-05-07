@@ -52,45 +52,88 @@
 // });
 $(function () {
 
-    let url = "/leeches"
-    $.get({url: url}).then((dataSet, status) => {
-        $('#example').DataTable({
-            // data: [["1", "2", "3", "4", "5"]],
-            data: convertToArray(dataSet),
-            columns: [
-                {title: "Id"},
-                {title: "Vote Count"},
-                {title: "Shop Name"},
-                {title: "City/Town"},
-                {title: "District"}
-            ]
-        }).column(0).visible(false);
-    });
+    // let url = "/leeches"
+    // $.get({url: url}).then((dataSet, status) => {
+    //     $('#example').DataTable({
+    //         // data: [["1", "2", "3", "4", "5"]],
+    //         data: convertToArray(dataSet),
+    //         columns: [
+    //             {title: "Id"},
+    //             {title: "Vote Count"},
+    //             {title: "Shop Name"},
+    //             {title: "City/Town"},
+    //             {title: "District"}
+    //         ]
+    //     }).column(0).visible(false);
+    // });
 
     window.getCookie = function (name) {
         let match = document.cookie.match(new RegExp('(^| )' + name + '=([^;]+)'));
         if (match) return match[2];
     }
+    $("#viewFiltered").on("click", () => {
+        let filterTable = $('#filterTableId');
+        let filterData = filterTable.DataTable().rows({filter: 'applied'}).data();
+        let myarray = Array();
+        for (let i = 0; i < filterData.length; i++) {
+            myarray.push(filterData[i]);
+            console.log(filterData[i][0]);
+        }
+        let url = "/users/details";
 
-    // $("#filterBtn").on("click", () => {
-    //     let url = "/users/details";
-    //
-    //     $.get({url: url}).then(details => {
-    //         url = "/leeches"
-    //         $.get({url: url}).then((dataSet, status) => {
-    //             $('#filterTableId').DataTable({
-    //                 data: dataSet,
-    //                 columns: [
-    //                     {title: "Vote Count"},
-    //                     {title: "Shop Name"},
-    //                     {title: "City/Town"},
-    //                     {title: "District"}
-    //                 ]
-    //             });
-    //             $('#gridSystemModal').modal('show');
-    //         });
-    //     });
-    // });
+        $.get({url: url}).then(details => {
+
+            document.cookie = "leechids=" + myarray;
+
+        });
+    });
+    $("#filterBtn").on("click", () => {
+        let url = "/users/details";
+
+        $.get({url: url}).then(details => {
+            url = "/leeches"
+            $.get({url: url}).then(dataSet => {
+                $('#filterTableId').DataTable({
+                    // data: dataSet,
+                    data: convertToArray(dataSet),
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "columnDefs": [
+                        {
+                            "visible": false,
+                            "searchable": false,
+                            "targets": 0,
+                        },
+                        {
+                            "title": "Vote Count",
+                            "width": "10%",
+                            "searchable": true,
+                            "targets": 1,
+                        },
+                        {
+                            "title": "Shop Name",
+                            "width": "30%",
+                            "searchable": true,
+                            "targets": 2,
+                        },
+                        {
+                            "title": "City / Town",
+                            "width": "30%",
+                            "searchable": true,
+                            "targets": 3,
+                        },
+                        {
+                            "title": "District / Area",
+                            "width": "30%",
+                            "searchable": true,
+                            "targets": 4,
+                        }],
+                }).column(0).visible(false);
+
+                $('#gridSystemModal').modal('show');
+            });
+        });
+    });
 
     $("#showMyLeeches").on("change", () => {
         let url = "/users/details";
