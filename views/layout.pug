@@ -67,9 +67,6 @@ body
                     a#lastPage(href='/?showPage=' + session.pagination.totalPages class="link-available") Last Page &raquo;|
                 else
                     a#lastPage(href='#' class="link-not-avaliable") Last Page &raquo;|
-            if user
-                | Show My Leeches &nbsp;
-                input( type="checkbox" id="showMyLeeches" name="showMyLeeches" checked=session.filterMyLeeches)
         include includes/filterPopup
             table#example.display
         block content

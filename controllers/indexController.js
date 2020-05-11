@@ -1,8 +1,14 @@
 "use strict";
 
+const mongoose = require("mongoose");
+const ObjectId = mongoose.Types.ObjectId;
+
 const Leech = require("../models/leeches/leech");
 const formUtils = require("../utils/form")
 const VoteCount = require("../models/leeches/voteCount");
+
+const FILTER_LEECHES_COOKIE = "filterLeeches";
+const FILTER_MY_LEECHES_COOKIE = "filterMyLeeches";
 
 exports.home_get = (req, res) => {
     let orderBy = req.cookies.orderBy ? req.cookies.orderBy : "voteCount";
@@ -24,7 +30,6 @@ exports.order_get = (req, res) => {
 
 const _refresh_home_page = async (req, res, orderBy, orderDirection) => {
     let sess = req.session;
-
     let filter = {};
 
     try {
@@ -34,18 +39,22 @@ const _refresh_home_page = async (req, res, orderBy, orderDirection) => {
             sess.votesToday = votingStats.votesToday;
             sess.votesRemaining = votingStats.votesRemaining;
 
-            if (req.cookies["filterMyLeeches-" + req.user._id]) {
+            let filterMyLeeches = req.cookies[FILTER_MY_LEECHES_COOKIE];
+            if (filterMyLeeches) {
                 filter["userId"] = req.user._id;
-                sess.filterMyLeeches = true;
-            } else {
-                //todo by leeches here IF set
+            }
+        }
 
-                //todo messy
-                sess.filterMyLeeches = false;
+        let filterData = req.cookies[FILTER_LEECHES_COOKIE];
+        if (filterData) {
+            let objectIds = Array();
+            let filteredIds = filterData.split(",");
+
+            for (let i = 0; i < filteredIds.length; i++) {
+                objectIds.push(ObjectId(filteredIds[i]));
             }
 
-        } else {
-            sess.filterMyLeeches = false;
+            filter = {_id: {$in: objectIds}};
         }
 
         let sortParams = {};

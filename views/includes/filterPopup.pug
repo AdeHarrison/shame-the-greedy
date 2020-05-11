@@ -4,6 +4,9 @@
             .modal-body
                 table#filterTableId.display
             .modal-footer
+                if user
+                    | Show My Leeches &nbsp;
+                    input( type="checkbox" id="showMyLeeches" name="showMyLeeches" checked=session.filterLeeches)
                 button#viewFiltered.btn.btn-primary(type='button') View Filtered
-                button.btn.btn-secondary(type='button' data-dismiss='modal') Cancel
+                button#cancelFiltered.btn.btn-secondary(type='button' data-dismiss='modal') Cancel
 button#filterBtn | Filter The Greedy
