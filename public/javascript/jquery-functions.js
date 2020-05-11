@@ -5,6 +5,7 @@ $(function () {
     $('#filterTableId').DataTable({
         "pageLength": 5,
         "lengthChange": false,
+        aaSorting: [[1, 'des']],
         "columnDefs": [
             {
                 "visible": false,
