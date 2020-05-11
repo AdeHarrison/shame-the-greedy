@@ -44,7 +44,6 @@ const leechSchema = new Schema({
 
 leechSchema.plugin(mongoosePaginate);
 
-//todo compound index here on 1st 3 fields
 const Leech = mongoose.model("Leech", leechSchema);
 
 module.exports = Leech;

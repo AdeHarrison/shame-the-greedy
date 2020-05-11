@@ -20,8 +20,8 @@ block content
                             a(id="votesRemainingToday") #{session.votesRemaining}
             .col-sm-9.h4
                 each leech in leeches
-                    .col-sm-4
-                        .panel.panel-default
+                    .col-sm-2
+                        .panel.panel-default.shadowed.link-not-avaliable
                             .panel-heading
                                 | Votes of Shame : &nbsp&nbsp
                                 a(id="leechVotes-" + leech._id) #{leech.voteCount}

@@ -2,6 +2,10 @@ html {
     box-sizing: border-box;
 }
 
+body{
+    background-color: lightseagreen;
+}
+
 *, *::before, *::after {
     box-sizing: inherit; /* [1] */
     margin: 0;
@@ -41,6 +45,14 @@ div.detail {
     overflow-y: hidden;
 }
 
+/*.shadowed {*/
+/*    padding: 500px;*/
+/*    !*font-weight: bold;*!*/
+/*    !*background-color: #a94442;*!*/
+/*    !*box-shadow: #a94442;*!*/
+/*    !*border-width: 10px;*!*/
+/*    !*border-color: green;*!*/
+/*}*/
 #comments {
     width: 100%;
     height: 4em;
@@ -79,4 +91,12 @@ a:hover {
 .link-available {
     background-color: green;
     color: white;
+}
+
+#footer {
+    position:absolute;
+    bottom:0;
+    width:100%;
+    height:60px;   /* Height of the footer */
+    background:#6cf;
 }
