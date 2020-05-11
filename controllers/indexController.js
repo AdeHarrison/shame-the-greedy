@@ -8,7 +8,6 @@ const formUtils = require("../utils/form")
 const VoteCount = require("../models/leeches/voteCount");
 
 const FILTER_LEECHES_COOKIE = "filterLeeches";
-const FILTER_MY_LEECHES_COOKIE = "filterMyLeeches";
 
 exports.home_get = (req, res) => {
     let orderBy = req.cookies.orderBy ? req.cookies.orderBy : "voteCount";
@@ -38,11 +37,6 @@ const _refresh_home_page = async (req, res, orderBy, orderDirection) => {
 
             sess.votesToday = votingStats.votesToday;
             sess.votesRemaining = votingStats.votesRemaining;
-
-            let filterMyLeeches = req.cookies[FILTER_MY_LEECHES_COOKIE];
-            if (filterMyLeeches) {
-                filter["userId"] = req.user._id;
-            }
         }
 
         let filterData = req.cookies[FILTER_LEECHES_COOKIE];

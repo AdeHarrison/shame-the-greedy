@@ -1,53 +1,52 @@
 $(function () {
 
     const FILTER_LEECHES_COOKIE = "filterLeeches";
-    const FILTER_MY_LEECHES_COOKIE = "filterMyLeeches";
+
+    $('#filterTableId').DataTable({
+        "pageLength": 5,
+        "lengthChange": false,
+        "columnDefs": [
+            {
+                "visible": false,
+                "searchable": false,
+                "targets": 0,
+            },
+            {
+                "title": "Vote Count",
+                "width": "10%",
+                "searchable": true,
+                "targets": 1,
+            },
+            {
+                "title": "Shop Name",
+                "width": "30%",
+                "searchable": true,
+                "targets": 2,
+            },
+            {
+                "title": "City / Town",
+                "width": "30%",
+                "searchable": true,
+                "targets": 3,
+            },
+            {
+                "title": "District / Area",
+                "width": "30%",
+                "searchable": true,
+                "targets": 4,
+            }],
+    }).column(0).visible(false);
 
     $("#filterBtn").on("click", () => {
-        let url = "/users/details";
+        let url = "/leeches"
 
-        $.get({url: url}).then(details => {
-            url = "/leeches"
+        $.get({url: url}).then(dataSet => {
+            let dataTable = $('#filterTableId').DataTable();
+            dataTable.clear();
+            dataTable.rows.add(convertToArray(dataSet));
+            dataTable.draw();
 
-            $.get({url: url}).then(dataSet => {
-                $('#filterTableId').DataTable({
-                    data: convertToArray(dataSet),
-                    "pageLength": 5,
-                    "lengthChange": false,
-                    "columnDefs": [
-                        {
-                            "visible": false,
-                            "searchable": false,
-                            "targets": 0,
-                        },
-                        {
-                            "title": "Vote Count",
-                            "width": "10%",
-                            "searchable": true,
-                            "targets": 1,
-                        },
-                        {
-                            "title": "Shop Name",
-                            "width": "30%",
-                            "searchable": true,
-                            "targets": 2,
-                        },
-                        {
-                            "title": "City / Town",
-                            "width": "30%",
-                            "searchable": true,
-                            "targets": 3,
-                        },
-                        {
-                            "title": "District / Area",
-                            "width": "30%",
-                            "searchable": true,
-                            "targets": 4,
-                        }],
-                }).column(0).visible(false);
-
-                $('#gridSystemModal').modal('show');
-            });
+            $('#gridSystemModal').modal('show');
         });
     });
 
@@ -60,35 +59,26 @@ $(function () {
         }
 
         document.cookie = FILTER_LEECHES_COOKIE + "=" + filteredIds;
-        document.cookie = FILTER_MY_LEECHES_COOKIE + +'=; expires=Thu, 01 Jan 1970 00:00:01GMT;';
 
         $('#gridSystemModal').modal('hide');
         window.location.replace("/");
     });
 
-    $("#showMyLeeches").on("change", () => {
-        document.cookie = FILTER_MY_LEECHES_COOKIE + "=true";
-        document.cookie = FILTER_LEECHES_COOKIE + '=; expires=Thu, 01 Jan 1970 00:00:01GMT;';
+    function convertToArray(dataSetIn) {
+        var dataSetOut = Array();
 
-        $('#gridSystemModal').modal('hide');
-        window.location.replace("/");
-    });
-});
+        for (let i = 0; i < dataSetIn.length; i++) {
+            let row = Array();
 
-function convertToArray(dataSetIn) {
-    var dataSetOut = Array();
+            row.push(dataSetIn[i]._id);
+            row.push(dataSetIn[i].voteCount);
+            row.push(dataSetIn[i].shopName);
+            row.push(dataSetIn[i].cityTown);
+            row.push(dataSetIn[i].districtArea);
 
-    for (let i = 0; i < dataSetIn.length; i++) {
-        let row = Array();
+            dataSetOut.push(row);
+        }
 
-        row.push(dataSetIn[i]._id);
-        row.push(dataSetIn[i].voteCount);
-        row.push(dataSetIn[i].shopName);
-        row.push(dataSetIn[i].cityTown);
-        row.push(dataSetIn[i].districtArea);
-
-        dataSetOut.push(row);
+        return dataSetOut;
     }
-
-    return dataSetOut;
-}
+});
